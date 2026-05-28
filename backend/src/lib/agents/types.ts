@@ -74,3 +74,29 @@ export type FinalResult = {
   review_report: ReviewReport
   final_archive_markdown: string
 }
+
+export type SimulationStreamEvent =
+  | {
+      type: "seed_brief"
+      data: SeedBrief
+    }
+  | {
+      type: "agent_step"
+      data: AgentStep
+    }
+  | {
+      type: "timeline_draft"
+      data: EpochDraft[]
+    }
+  | {
+      type: "review_report"
+      data: ReviewReport
+    }
+  | {
+      type: "timeline_revised"
+      data: EpochDraft[]
+    }
+  | {
+      type: "final_result"
+      data: FinalResult
+    }
