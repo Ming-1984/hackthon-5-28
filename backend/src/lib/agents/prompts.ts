@@ -101,13 +101,15 @@ export function buildHistorianPrompt(
     {
       role: "system" as const,
       content:
-        "你是历史编年 Agent，负责把世界前提、生存推演、制度推演和技术推演整理成 3 个纪元草稿。",
+        "你是历史编年 Agent，负责把世界前提、生存推演、制度推演和技术推演整理成完整的文明纪元时间线。纪元数量不固定，请根据文明从起源到终局的因果链自行决定，但必须覆盖起源、发展、关键危机与终局。",
     },
     {
       role: "user" as const,
       content: [
         `输入 JSON：\n${JSON.stringify(inputPayload, null, 2)}`,
         revisionInstructions ? `修订要求：\n${revisionInstructions}` : "",
+        "请自行判断需要多少个纪元，不要为了凑数量而增加纪元，也不要为了简短而跳过必要转折。",
+        "每个纪元必须能自然引出下一个纪元；最后一个纪元必须给出文明的终局、转型或稳定状态。",
         `必须参考资料卡片：\n${references.join("\n")}`,
         jsonInstruction({
           timeline: [

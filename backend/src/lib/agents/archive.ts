@@ -25,6 +25,10 @@ export function renderArchiveMarkdown(
   const turningPoints = timeline
     .map((epoch, index) => `${index + 1}. ${epoch.major_events[0] ?? epoch.epoch_name}`)
     .join("\n")
+  const causalChain = [
+    seedBrief.physical_anomaly,
+    ...timeline.map((epoch) => epoch.legacy || epoch.adaptation || epoch.epoch_name),
+  ].join(" -> ")
 
   return [
     `# 文明档案：${seedBrief.seed_title}`,
@@ -62,7 +66,7 @@ export function renderArchiveMarkdown(
     "",
     "## 核心因果链",
     "",
-    `${seedBrief.physical_anomaly} -> ${timeline[0]?.adaptation ?? "生存方式"} -> ${timeline[1]?.social_change ?? "资源组织"} -> ${timeline[2]?.legacy ?? "文明结局"}`,
+    causalChain,
     "",
     "## 审校状态",
     "",
